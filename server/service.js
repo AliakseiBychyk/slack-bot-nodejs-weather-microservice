@@ -13,6 +13,7 @@ service.get('/service/:location', (req, res, next) => {
 
   request.get('https://api.openweathermap.org/data/2.5/weather')
     .query({ q: req.params.location })
+    .query({ units: 'metric' })
     .query({ appid: weatherAPIKey })
     .end((err, response) => {
       if (err) {
@@ -20,7 +21,7 @@ service.get('/service/:location', (req, res, next) => {
         return res.sendStatus(404);
       }
 
-      res.json({result: `${response.body.weather[0].description} at ${response.body.main.temp} \uoC`});
+      res.json({result: `${response.body.weather[0].description} at ${response.body.main.temp} oC`});
     });
 });
 
